@@ -48,7 +48,7 @@ int main() {
     int ConAmnt = 0;
     int VowEqCon = 0;
     for (int i = 0; str[i] != '\0'; i++){
-        if (isalpha(str[i]) && isascii(str[i]) && (str[i] >= 'A' && str[i] <= 'Z' || str[i] >= 'a' && str[i] <= 'z')) {
+        if (isalpha(str[i])) {
             word = true;
             if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'y' ||
                 str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U' || str[i] == 'Y'   )
@@ -58,8 +58,7 @@ int main() {
                 ConAmnt++;
             }
         }else{
-            if (str[i])
-            if (word && str[i]==' ') {
+            if (word) {
                 LatWordAmnt++;
                 word = false;
                 if (VowAmnt == ConAmnt){
