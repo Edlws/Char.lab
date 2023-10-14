@@ -47,32 +47,49 @@ int main() {
     int VowAmnt = 0;
     int ConAmnt = 0;
     int VowEqCon = 0;
-    for (int i = 0; str[i] != '\0'; i++){
-        if (isalpha(str[i])) {
-            word = true;
-            if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'y' ||
-                str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U' || str[i] == 'Y'   )
-            {
-                VowAmnt++;
-            }else{
-                ConAmnt++;
-            }
-        }else{
-            if (word) {
-                LatWordAmnt++;
-                word = false;
-                if (VowAmnt == ConAmnt){
-                    VowEqCon++;
+    int SymbCount = 0;
+    int LatCount = 0;
+    for (int i = 0; str[i] < sizeof (str); i++){
+        if (str[i] != ' ') {
+            if (str[i] != '\n'){
+                word = true;
+                SymbCount++;
+                if (isalpha(str[i])) {
+                    LatCount++;
+                    if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' ||
+                        str[i] == 'y' ||
+                        str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U' ||
+                        str[i] == 'Y') {
+                        VowAmnt++;
+                    } else {
+                        ConAmnt++;
+                    }
                 }
-                VowAmnt=0;
-                ConAmnt=0;
+            }else{
+                if (word) {
+                    if (LatCount == SymbCount && LatCount != 0) {
+                        LatWordAmnt++;
+                    }//Второе мб нужно убрать
+                    if (VowAmnt == ConAmnt && LatCount == SymbCount && LatCount != 0) {
+                        VowEqCon++;
+                    }
+                }
             }
         }
-    }
-    if (word) {
-        LatWordAmnt++;
-        if (VowAmnt == ConAmnt) {
-            VowEqCon++;
+        else {
+            if (word) {
+                if (LatCount == SymbCount && LatCount != 0){
+                    LatWordAmnt++;
+                }
+                if (VowAmnt == ConAmnt && LatCount == SymbCount && LatCount != 0){
+                    VowEqCon++;
+                }
+                word = false;
+                VowAmnt=0;
+                ConAmnt=0;
+                LatCount = 0;
+                SymbCount = 0;
+            }
         }
     }
     cout << "Amount of words containing only Latin characters: "<< LatWordAmnt << endl;
